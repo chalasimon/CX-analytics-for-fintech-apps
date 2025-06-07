@@ -22,7 +22,7 @@ class PlayStoreScraper:
         self.lang = lang
         self.country = country
 
-    def get_reviews(self, num_reviews=500):
+    def get_reviews(self, num_reviews):
         logging.info(f"Fetching reviews for {self.app_id}")
         try:
             result, _ = reviews(
