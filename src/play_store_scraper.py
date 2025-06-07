@@ -1,14 +1,16 @@
-# google_play_scraper_module.py
-
 import logging
 import csv
+import os
 from datetime import datetime
 from google_play_scraper import Sort, reviews
 
+# Ensure the directory exists
+DATA_DIR = '../data/raw'
+os.makedirs(DATA_DIR, exist_ok=True)
 
-# Configure logging
+# Configure logging to write in data/raw/scraper.log
 logging.basicConfig(
-    filename='scraper.log',
+    filename=os.path.join(DATA_DIR, 'scraper.log'),
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
@@ -20,8 +22,8 @@ class PlayStoreScraper:
         self.lang = lang
         self.country = country
 
-    def get_reviews(self, num_reviews=1000):
-        logging.info(f"🔄 Fetching reviews for {self.app_id}")
+    def get_reviews(self, num_reviews=500):
+        logging.info(f"Fetching reviews for {self.app_id}")
         try:
             result, _ = reviews(
                 self.app_id,
@@ -39,11 +41,12 @@ class PlayStoreScraper:
 
     def save_reviews_to_csv(self, review_data, bank_name):
         timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
-        filename = f"{self.app_id}_reviews_{timestamp}.csv"
-        logging.info(f"Saving reviews to {filename}")
+        filename = f"{bank_name.replace(' ', '_')}_reviews_{timestamp}.csv"
+        filepath = os.path.join(DATA_DIR, filename)
+        logging.info(f"Saving reviews to {filepath}")
 
         try:
-            with open(filename, mode='w', newline='', encoding='utf-8') as file:
+            with open(filepath, mode='w', newline='', encoding='utf-8') as file:
                 writer = csv.DictWriter(file, fieldnames=['review_text', 'rating', 'date', 'bank_name', 'source'])
                 writer.writeheader()
 
@@ -55,6 +58,6 @@ class PlayStoreScraper:
                         'bank_name': bank_name,
                         'source': 'Google Play'
                     })
-            logging.info(f"Successfully saved {len(review_data)} reviews to {filename}")
+            logging.info(f"Successfully saved {len(review_data)} reviews to {filepath}")
         except Exception as e:
             logging.error(f"Error saving reviews to CSV: {e}")
