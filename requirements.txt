@@ -49,15 +49,6 @@ pydantic_core==2.33.2
 Pygments==2.19.1
 pytest==8.4.0
 python-dateutil==2.9.0.post0
-pytz==2025.2
-pywin32==310
-pyzmq==26.4.0
-requests==2.32.3
-rich==14.0.0
-setuptools==80.9.0
-shellingham==1.5.4
-six==1.17.0
-smart-open==7.1.0
 spacy==3.8.7
 spacy-langdetect==0.1.2
 spacy-legacy==3.0.12
