@@ -14,4 +14,6 @@ __pycache__/
 data/
 *.csv
 *.json
+# Ignore ide configuration files
 *.parquet
+.vscode/
