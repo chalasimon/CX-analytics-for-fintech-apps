@@ -17,3 +17,23 @@ class SentimentVisualizer:
         plt.grid(True)
         plt.tight_layout()
         plt.show()
+    def plot_sentiment_distribution(self, data):
+        # Count positive and negative reviews per bank
+        counts = data.groupby(['bank_name', 'sentiment']).size().reset_index(name='count')
+        
+        plt.figure(figsize=(10, 6))
+        sns.barplot(
+            data=counts,
+            x='bank_name',
+            y='count',
+            hue='sentiment',
+            palette={'POSITIVE': 'green', 'NEGATIVE': 'red'}
+        )
+        
+        plt.title("Number of Positive vs Negative Reviews by Bank", fontsize=16)
+        plt.xlabel("Bank Name", fontsize=13)
+        plt.ylabel("Number of Reviews", fontsize=13)
+        plt.legend(title="Sentiment", title_fontsize=12)
+        plt.grid(axis='y', linestyle='--', alpha=0.5)
+        plt.tight_layout()
+        plt.show()
