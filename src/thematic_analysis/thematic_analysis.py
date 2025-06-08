@@ -19,6 +19,15 @@ class ThematicAnalyzer:
         self.vectorizer.fit(texts)
         return self.vectorizer.get_feature_names_out()
 
+    def categorize_themes(self, text: str) -> list:
+        doc = self.nlp(text.lower())
+        themes = []
+        for token in doc:
+            for theme, keywords in self.theme_keywords.items():
+                if token.text in keywords and theme not in themes:
+                    themes.append(theme)
+        return themes if themes else ['other']
+    
     def categorize_keywords(self, keywords):
         theme_counts = defaultdict(int)
         for keyword in keywords:
@@ -42,3 +51,12 @@ class ThematicAnalyzer:
             top_themes = dict(Counter(themes).most_common(top_n))
             bank_theme_summary[bank] = top_themes
         return bank_theme_summary
+
+    # extract keywords from the reviews per bank
+    def extract_bank_keywords(self, df, text_column='processed_review', bank_column='bank_name'):
+        bank_keywords = defaultdict(list)
+        for bank in df[bank_column].unique():
+            bank_df = df[df[bank_column] == bank]
+            keywords = self.extract_keywords(bank_df[text_column].tolist())
+            bank_keywords[bank] = keywords
+        return bank_keywords
