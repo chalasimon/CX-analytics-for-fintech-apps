@@ -19,3 +19,13 @@ class ThematicVisualizer:
         plt.title("Word Cloud of Thematic Analysis", fontsize=16)
         plt.tight_layout()
         plt.show()
+    #Visualization of the rating distribution for each bank
+    def plot_rating_distribution(self, df, bank_column='bank_name', rating_column='rating'):
+        plt.figure(figsize=(12, 6))
+        sns.boxplot(x=bank_column, y=rating_column, data=df)
+        plt.title('Rating Distribution by Bank', fontsize=16)
+        plt.xlabel('Bank Name', fontsize=14)
+        plt.ylabel('Rating', fontsize=14)
+        plt.xticks(rotation=45)
+        plt.tight_layout()
+        plt.show()
