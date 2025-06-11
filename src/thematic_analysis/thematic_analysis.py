@@ -16,6 +16,8 @@ class ThematicAnalyzer:
         }
 
     def extract_keywords(self, texts):
+        # if text is Nan convert to empty string
+        texts = [text if isinstance(text, str) else '' for text in texts]
         self.vectorizer.fit(texts)
         return self.vectorizer.get_feature_names_out()
 
