@@ -62,3 +62,4 @@ class ThematicAnalyzer:
             keywords = self.extract_keywords(bank_df[text_column].tolist())
             bank_keywords[bank] = keywords
         return bank_keywords
+  
