@@ -55,7 +55,10 @@ After preprocessing, the script prints:
 - Summary statistics for each bank’s cleaned data
 - Total number of reviews
 - Final column names
-
+- Saving the preprocessed data in a combined DataFrame and Postgres database
+-  Visualization of the distribution of sentiment trends over time
+- Visualization of the rating distribution for each bank
+- Word cloud visualization of the most common positive and negative words in reviews
 ---
 
 ## 💾 Output Files
@@ -64,6 +67,9 @@ After preprocessing, the script prints:
 - `data/processed/Dashen_preprocessed.csv`
 - `data/processed/BOA_preprocessed.csv`
 - `data/processed/combined_preprocessed.csv`
+- `data/analyzed/cleaned_review_data.csv`
+- `data/analyzed/thematic_analysis_results.csv`
+- `src/database/bank_reviews` (Postgres database)
 
 ---
 
